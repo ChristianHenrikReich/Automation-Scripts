@@ -3,9 +3,9 @@
 
 echo "Checking for wget"
 
-if [yum -q list installed packageX &>/dev/null]; then
-	echo "removing package"
+if [ ! -f /usr/bin/wget ]; then
+	yum -y install wget
+else
+	echo "Found, no action taken"
 fi
-
-echo "Installing wget"
 
