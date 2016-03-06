@@ -12,7 +12,7 @@ else
 fi
 
 echo -e "\e[32mFetching Java 8 from Oracle\e[39m"
-#wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.rpm"
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-linux-x64.rpm"
 
 echo -e "\e[32mInstalling Java 8\e[39m"
 sudo rpm -ivh jdk-8u74-linux-x64.rpm
@@ -22,21 +22,16 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 chmod 644 /etc/profile.d/java-env.sh
 
 echo -e "\e[32mSetting up Hadoop user credentials\e[39m"
-#useradd hadoop
-#passwd hadoop
+useradd hadoop
+passwd hadoop
 
 echo -e "\e[32mCreating SSH keys for hadoop user\e[39m"
-##su - hadoop
-##ssh-keygen -t rsa
-##cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-##chmod 0600 ~/.ssh/authorized_keys
-##exit
 
-#sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa;cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
+sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa;cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
 
 echo -e "\e[32mFetching Hadoop-2.7.2\e[39m"
 cd /home/hadoop
-#wget http://apache.claz.org/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz
+wget http://apache.claz.org/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz
 echo -e "\e[32mUnpacking\e[39m"
 tar xzf hadoop-2.7.2.tar.gz
 echo -e "\e[32mCreating sym link\e[39m"
