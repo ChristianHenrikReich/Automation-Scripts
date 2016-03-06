@@ -18,17 +18,8 @@ echo -e "\e[32mInstalling Java 8\e[39m"
 sudo rpm -ivh jdk-8u74-linux-x64.rpm
 
 echo -e "\e[32mWriting the Java env to /etc/profile.d/java-env.sh\e[39m"
-
-if [ -f /etc/profile.d/java-env.sh ]; then
-        rm /etc/profile.d/java-env.sh
-fi
-
-echo "#!/bin/bash
-export JAVA_HOME=\"/usr/java/jdk1.8.0_74/bin/java\"
-export JRE_HOME=\"/usr/java/jdk1.8.0_74/jre/bin/java\"
-PATH=\$PATH:\$HOME/bin:JAVA_HOME:JRE_HOME
-" >> /etc/profile.d/java-env.sh
-chmod 777 /etc/profile.d/java-env.sh
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/profile.d/java-env.sh -O /etc/profile.d/java-env.sh
+chmod 644 /etc/profile.d/java-env.sh
 
 echo -e "\e[32mSetting up Hadoop user credentials\e[39m"
 #useradd hadoop
@@ -51,24 +42,39 @@ tar xzf hadoop-2.7.2.tar.gz
 echo -e "\e[32mCreating sym link\e[39m"
 ln -s hadoop-2.7.2 hadoop
 
-echo -e "\e[32mWriting the Java env to /etc/profile.d/hadoop-env.sh\e[39m"
+echo -e "\e[32mWriting the Hadoop env to /etc/profile.d/hadoop-env.sh\e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/profile.d/hadoop-env.sh -O /etc/profile.d/hadoop-env.sh
+chmod 644 /etc/profile.d/hadoop-env.sh
 
-if [ -f /etc/profile.d/hadoop-env.sh ]; then
-        rm /etc/profile.d/hadoop-env.sh
-fi
+echo -e "\e[32mUpdating core-site.xml\e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/core-site.xml -O /home/hadoop/hadoop/etc/hadoop/core-site.xml
 
-echo "#!/bin/bash
-export HADOOP_HOME=/home/hadoop/hadoop
-export HADOOP_INSTALL=\$HADOOP_HOME
-export HADOOP_MAPRED_HOME=\$HADOOP_HOME
-export HADOOP_COMMON_HOME=\$HADOOP_HOME
-export HADOOP_HDFS_HOME=\$HADOOP_HOME
-export YARN_HOME=\$HADOOP_HOME
-export HADOOP_COMMON_LIB_NATIVE_DIR=\$HADOOP_HOME/lib/native
-export PATH=\$PATH:$HADOOP_HOME/sbin:\$HADOOP_HOME/bin
-" >> /etc/profile.d/hadoop-env.sh
-chmod 777 /etc/profile.d/hadoop-env.sh
+echo -e "\e[32mUpdating hdfs-site.xml\e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/hdfs-site.xml -O /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
 
+echo -e "\e[32mUpdating mapred-site.xml\e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/mapred-site.xml -O /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
 
+echo -e "\e[32mUpdating yarn-site.xml \e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/yarn-site.xml -O /home/hadoop/hadoop/etc/hadoop/yarn-site.xml 
 
+. /etc/profile.d/java-env.sh
+. /etc/profile.d/hadoop-env.sh
+
+echo -e "\e[32mFormatting namenode \e[39m"
+hdfs namenode -format
+
+echo -e "\e[32mOpening TCP port 8088, 50070, 50075, 50090, 50105, 50030, 50060 in firewall and reloads\e[39m"
+firewall-cmd --zone=public --add-port=8088/tcp --permanent
+firewall-cmd --zone=public --add-port=50070/tcp --permanent
+firewall-cmd --zone=public --add-port=50075/tcp --permanent
+firewall-cmd --zone=public --add-port=50090/tcp --permanent
+firewall-cmd --zone=public --add-port=50105/tcp --permanent
+firewall-cmd --zone=public --add-port=50030/tcp --permanent
+firewall-cmd --zone=public --add-port=50060/tcp --permanent
+firewall-cmd --reload
+
+echo -e "\e[32mInitial start \e[39m"
+$HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/start-yarn.sh
 

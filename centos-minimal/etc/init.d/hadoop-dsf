@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+#       /etc/rc.d/init.d/hadoop-dfs
+#
+# chkconfig: 345 69 68
+# description: Description of the Service
+
+. /etc/init.d/functions
+. /etc/profile.d/java-env.sh
+. /etc/profile.d/hadoop-env.sh
+
+start() {
+        echo -n "Starting hadoop-dfs"
+	${HADOOP_HOME}/sbin/start-dfs.sh
+}
+
+stop() {
+        echo -n $"Stopping hadoop-dfs"
+	${HADOOP_HOME}/sbin/stop-dfs.sh
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: <servicename> {start|stop|restart}"
+        exit 1
+        ;;
+esac
+exit $?
+
+
