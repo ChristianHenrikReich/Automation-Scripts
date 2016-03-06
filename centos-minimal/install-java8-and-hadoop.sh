@@ -17,6 +17,19 @@ echo -e "\e[32mFetching Java 8 from Oracle\e[39m"
 echo -e "\e[32mInstalling Java 8\e[39m"
 sudo rpm -ivh jdk-8u74-linux-x64.rpm
 
+echo -e "\e[32mWriting the Java env to /etc/profile.d/java-env.sh\e[39m"
+
+if [ -f /etc/profile.d/java-env.sh ]; then
+        rm /etc/profile.d/java-env.sh
+fi
+
+echo "#!/bin/bash
+export JAVA_HOME=\"/usr/java/jdk1.8.0_74/bin/java\"
+export JRE_HOME=\"/usr/java/jdk1.8.0_74/jre/bin/java\"
+PATH=\$PATH:\$HOME/bin:JAVA_HOME:JRE_HOME
+" >> /etc/profile.d/java-env.sh
+chmod 777 /etc/profile.d/java-env.sh
+
 echo -e "\e[32mSetting up Hadoop user credentials\e[39m"
 #useradd hadoop
 #passwd hadoop
@@ -37,6 +50,24 @@ echo -e "\e[32mUnpacking\e[39m"
 tar xzf hadoop-2.7.2.tar.gz
 echo -e "\e[32mCreating sym link\e[39m"
 ln -s hadoop-2.7.2 hadoop
+
+echo -e "\e[32mWriting the Java env to /etc/profile.d/hadoop-env.sh\e[39m"
+
+if [ -f /etc/profile.d/hadoop-env.sh ]; then
+        rm /etc/profile.d/hadoop-env.sh
+fi
+
+echo "#!/bin/bash
+export HADOOP_HOME=/home/hadoop/hadoop
+export HADOOP_INSTALL=\$HADOOP_HOME
+export HADOOP_MAPRED_HOME=\$HADOOP_HOME
+export HADOOP_COMMON_HOME=\$HADOOP_HOME
+export HADOOP_HDFS_HOME=\$HADOOP_HOME
+export YARN_HOME=\$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=\$HADOOP_HOME/lib/native
+export PATH=\$PATH:$HADOOP_HOME/sbin:\$HADOOP_HOME/bin
+" >> /etc/profile.d/hadoop-env.sh
+chmod 777 /etc/profile.d/hadoop-env.sh
 
 
 
