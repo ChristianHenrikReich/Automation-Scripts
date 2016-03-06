@@ -78,3 +78,21 @@ echo -e "\e[32mInitial start \e[39m"
 $HADOOP_HOME/sbin/start-dfs.sh
 $HADOOP_HOME/sbin/start-yarn.sh
 
+echo -e "\e[32mFecthing and installing start scripts \e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/init.d/hadoop-dsf -O /etc/init.d/hadoop-dsf
+chmod 755 /etc/init.d/hadoop-dsf
+
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/init.d/hadoop-yarn -O /etc/init.d/hadoop-yarn
+chmod 755 /etc/init.d/hadoop-yarn
+
+cd /etc/init.d/
+chkconfig hadoop-dsf --add
+chkconfig hadoop-yarn --add
+chkconfig hadoop-dsf on
+chkconfig hadoop-yarn on
+
+echo -e "\e[32mDone, please reboot to get the full effect.\e[39m"
+
+
+
+
