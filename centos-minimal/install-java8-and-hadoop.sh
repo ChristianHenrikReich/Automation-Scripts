@@ -23,11 +23,10 @@ chmod 644 /etc/profile.d/java-env.sh
 
 echo -e "\e[32mSetting up Hadoop user credentials\e[39m"
 useradd hadoop
-passwd hadoop
 
 echo -e "\e[32mCreating SSH keys for hadoop user\e[39m"
 
-sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa;cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
+sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa -P "";cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
 
 echo -e "\e[32mFetching Hadoop-2.7.2\e[39m"
 cd /home/hadoop
