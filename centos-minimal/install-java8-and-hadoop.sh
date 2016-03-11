@@ -26,7 +26,7 @@ useradd hadoop
 
 echo -e "\e[32mCreating SSH keys for hadoop user\e[39m"
 
-sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa -P \"\";cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
+sudo -u hadoop -H sh -c "cd ~;echo -e 'y\n'|ssh-keygen -t rsa -P \"\" -f ~/.ssh/id_rsa;cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
 
 echo -e "\e[32mFetching Hadoop-2.7.2\e[39m"
 cd /home/hadoop
@@ -53,8 +53,12 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 echo -e "\e[32mUpdating yarn-site.xml \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/yarn-site.xml -O /home/hadoop/hadoop/etc/hadoop/yarn-site.xml 
 
-echo -e "\e[32mUpdating yarn-site.xml \e[39m"
+echo -e "\e[32mUpdating start-dsf \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/hadoop/sbin/start-dfs.sh -O /home/hadoop/hadoop/sbin/start-dfs.sh
+
+echo -e "\e[32mUpdating start-yarn \e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/hadoop/sbin/start-yarn.sh -O /home/hadoop/hadoop/sbin/start-yarn.sh
+
 
 . /etc/profile.d/java-env.sh
 . /etc/profile.d/hadoop-env.sh
