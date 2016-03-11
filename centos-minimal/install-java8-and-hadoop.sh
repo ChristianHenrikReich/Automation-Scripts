@@ -26,7 +26,7 @@ useradd hadoop
 
 echo -e "\e[32mCreating SSH keys for hadoop user\e[39m"
 
-sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa -P "";cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
+sudo -u hadoop -H sh -c "cd ~;ssh-keygen -t rsa -P \"\";cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;chmod 0600 ~/.ssh/authorized_keys"
 
 echo -e "\e[32mFetching Hadoop-2.7.2\e[39m"
 cd /home/hadoop
@@ -35,6 +35,7 @@ echo -e "\e[32mUnpacking\e[39m"
 tar xzf hadoop-2.7.2.tar.gz
 echo -e "\e[32mCreating sym link\e[39m"
 ln -s hadoop-2.7.2 hadoop
+chown hadoop -R /home/hadoop
 
 echo -e "\e[32mWriting the Hadoop env to /etc/profile.d/hadoop-env.sh\e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/profile.d/hadoop-env.sh -O /etc/profile.d/hadoop-env.sh
