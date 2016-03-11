@@ -53,6 +53,9 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 echo -e "\e[32mUpdating yarn-site.xml \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/yarn-site.xml -O /home/hadoop/hadoop/etc/hadoop/yarn-site.xml 
 
+echo -e "\e[32mUpdating yarn-site.xml \e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/hadoop/sbin/start-dfs.sh -O /home/hadoop/hadoop/sbin/start-dfs.sh
+
 . /etc/profile.d/java-env.sh
 . /etc/profile.d/hadoop-env.sh
 
