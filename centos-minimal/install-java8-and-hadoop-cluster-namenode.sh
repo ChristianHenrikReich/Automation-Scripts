@@ -58,16 +58,16 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 chmod 644 /etc/profile.d/hadoop-env.sh
 
 echo -e "\e[32mUpdating core-site.xml\e[39m"
-wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/core-site.xml -O /home/hadoop/hadoop/etc/hadoop/core-site.xml
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/name-node/core-site.xml -O /home/hadoop/hadoop/etc/hadoop/core-site.xml
 
 echo -e "\e[32mUpdating hdfs-site.xml\e[39m"
-wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/hdfs-site.xml -O /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/name-node/hdfs-site.xml -O /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
 
 echo -e "\e[32mUpdating mapred-site.xml\e[39m"
-wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/mapred-site.xml -O /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/name-node/mapred-site.xml -O /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
 
 echo -e "\e[32mUpdating yarn-site.xml \e[39m"
-wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/single-node/yarn-site.xml -O /home/hadoop/hadoop/etc/hadoop/yarn-site.xml 
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/hadoop/name-node/yarn-site.xml -O /home/hadoop/hadoop/etc/hadoop/yarn-site.xml 
 
 echo -e "\e[32mUpdating start-dsf \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/hadoop/sbin/start-dfs.sh -O /home/hadoop/hadoop/sbin/start-dfs.sh
