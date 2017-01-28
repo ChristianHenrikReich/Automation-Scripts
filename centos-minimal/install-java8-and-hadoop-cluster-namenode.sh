@@ -84,6 +84,10 @@ hdfs namenode -format
 
 echo -e "\e[32mOpening TCP port 8088, 50070, 50075, 50090, 50105, 50030, 50060 in firewall and reloads\e[39m"
 firewall-cmd --zone=public --add-port=8088/tcp --permanent
+firewall-cmd --zone=public --add-port=8020/tcp --permanent
+firewall-cmd --zone=public --add-port=8025/tcp --permanent
+firewall-cmd --zone=public --add-port=8030/tcp --permanent
+firewall-cmd --zone=public --add-port=8050/tcp --permanent
 firewall-cmd --zone=public --add-port=50070/tcp --permanent
 firewall-cmd --zone=public --add-port=50075/tcp --permanent
 firewall-cmd --zone=public --add-port=50090/tcp --permanent
