@@ -3,6 +3,10 @@
 # Installs Java 8 and Hadoop mercyless. But it is exptected to
 # run on a clean minimal CentOS 7 installation
 
+MACFORTHISNODE="$(cat /sys/class/net/eth0/address)"
+
+echo -e "\e[32mAssuming ${MACFORTHISNODE} is MAC for this node\e[39m" 
+
 read -p "Enter IP for this name node: " ip_for_this_node
 
 echo -e "\e[32mChecking for wget\e[39m"
