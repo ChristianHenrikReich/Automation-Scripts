@@ -8,6 +8,16 @@ MACFORTHISNODE="$(cat /sys/class/net/eth0/address)"
 echo -e "\e[32mAssuming ${MACFORTHISNODE} is MAC for this node\e[39m" 
 
 read -p "Enter IP for this name node: " ip_for_this_node
+read -p "Enter Gateway for this name node: " gateway_for_this_node
+read -p "Enter Netmask for this name node: " netmask_for_this_node
+
+read -p "Start installation? " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Nn]$ ]]
+then
+    exit 1
+fi
+
 
 echo -e "\e[32mChecking for wget\e[39m"
 
