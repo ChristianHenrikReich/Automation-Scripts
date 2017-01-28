@@ -78,6 +78,15 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 echo -e "\e[32m/etc/sysconfig/network-scripts/ifcfg-eth0 \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/sysconfig/ifcfg-eth0 -O /etc/sysconfig/network-scripts/ifcfg-eth0
 
+echo -e "\e[32mUpdating IPs\e[39m"
+sed -i -e "s/%%NameNodeIp%%/$ip_for_this_node/g" /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+sed -i -e "s/%%NameNodeIp%%/$ip_for_this_node/g" /home/hadoop/hadoop/etc/hadoop/core-site.xml
+sed -i -e "s/%%NameNodeIp%%/$ip_for_this_node/g" /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
+
+sed -i -e "s/%%IpForThisNode%%/$ip_for_this_node/g" /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i -e "s/%%GatewayForThisNode%%/$gateway_for_this_node/g" /etc/sysconfig/network-scripts/ifcfg-eth0
+sed -i -e "s/%%NetmaskForThisNode%%/$netmask_for_this_node/g" /etc/sysconfig/network-scripts/ifcfg-eth0
+
 
 . /etc/profile.d/java-env.sh
 . /etc/profile.d/hadoop-env.sh
