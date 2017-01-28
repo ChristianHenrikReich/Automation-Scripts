@@ -75,6 +75,9 @@ wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/m
 echo -e "\e[32mUpdating start-yarn \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/hadoop/sbin/start-yarn.sh -O /home/hadoop/hadoop/sbin/start-yarn.sh
 
+echo -e "\e[32m/etc/sysconfig/network-scripts/ifcfg-eth0 \e[39m"
+wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/sysconfig/ifcfg-eth0 -O /etc/sysconfig/network-scripts/ifcfg-eth0
+
 
 . /etc/profile.d/java-env.sh
 . /etc/profile.d/hadoop-env.sh
