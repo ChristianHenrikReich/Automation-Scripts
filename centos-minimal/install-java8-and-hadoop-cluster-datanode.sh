@@ -52,7 +52,6 @@ echo -e "\e[32mUnpacking\e[39m"
 tar xzf hadoop-2.7.2.tar.gz
 echo -e "\e[32mCreating sym link\e[39m"
 ln -s hadoop-2.7.2 hadoop
-chown hadoop -R /home/hadoop
 
 echo -e "\e[32mWriting the Hadoop env to /etc/profile.d/hadoop-env.sh\e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/profile.d/hadoop-env.sh -O /etc/profile.d/hadoop-env.sh
@@ -110,6 +109,9 @@ firewall-cmd --reload
 echo -e "\e[32mInitial start \e[39m"
 $HADOOP_HOME/sbin/start-dfs.sh
 $HADOOP_HOME/sbin/start-yarn.sh
+
+echo -e "\e[32mChanging owner ship for /home/hadoop to hadoop user\e[39m"
+chown hadoop -R /home/hadoop
 
 echo -e "\e[32mFecthing and installing start scripts \e[39m"
 wget https://raw.githubusercontent.com/ChristianHenrikReich/automation-scripts/master/centos-minimal/etc/init.d/hadoop-dsf -O /etc/init.d/hadoop-dsf
